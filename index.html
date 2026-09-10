@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sjwp2 - Zvonimir Švaganović</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --canvas: #15161f;
+        --bloom-blue: #7aa2f7;
+        --bloom-lilac: #bb9af7;
+        --bloom-teal: #73daca;
+        --ember: #ff9e64;
+        --text-hi: #f4f5fb;
+        --text-lo: #aeb4d6;
+        --glass: rgba(255, 255, 255, 0.09);
+        --glass-border: rgba(255, 255, 255, 0.22);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      body {
+        background: var(--canvas);
+        color: var(--text-hi);
+        font-family: "Inter", system-ui, sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ---------- Aurora background ---------- */
+
+      .aurora {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .aurora::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 0%,
+          rgba(21, 22, 31, 0.55) 70%,
+          var(--canvas) 100%
+        );
+      }
+
+      .bloom {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.55;
+        mix-blend-mode: screen;
+        will-change: transform;
+      }
+
+      .bloom.b1 {
+        width: 52vw;
+        height: 52vw;
+        top: -12vw;
+        left: -8vw;
+        background: var(--bloom-blue);
+        animation: drift1 34s ease-in-out infinite alternate;
+      }
+
+      .bloom.b2 {
+        width: 44vw;
+        height: 44vw;
+        bottom: -14vw;
+        right: -6vw;
+        background: var(--bloom-lilac);
+        animation: drift2 40s ease-in-out infinite alternate;
+      }
+
+      .bloom.b3 {
+        width: 38vw;
+        height: 38vw;
+        bottom: 8vh;
+        left: 12vw;
+        background: var(--bloom-teal);
+        animation: drift3 27s ease-in-out infinite alternate;
+      }
+
+      @keyframes drift1 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(6vw, 8vh) scale(1.12);
+        }
+      }
+      @keyframes drift2 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(-7vw, -6vh) scale(1.08);
+        }
+      }
+      @keyframes drift3 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(5vw, -7vh) scale(0.94);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bloom {
+          animation: none;
+        }
+      }
+
+      /* ---------- Content shell ---------- */
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      header.hero {
+        padding: 0 0 5rem 0;
+        text-align: center;
+      }
+
+      .kicker {
+        font-size: 14px;
+        color: var(--text-lo);
+        margin: 0 0 18px;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: clamp(64px, 13vw, 128px);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        margin: 0 0 20px;
+        background: linear-gradient(
+          135deg,
+          #ffffff 20%,
+          var(--bloom-blue) 60%,
+          var(--bloom-lilac) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .identity {
+        font-size: 17px;
+        color: var(--text-lo);
+        margin: 0 0 10px;
+      }
+
+      .identity strong {
+        color: var(--text-hi);
+        font-weight: 600;
+      }
+
+      .desc {
+        max-width: 46ch;
+        margin: 0 auto;
+        font-size: 15px;
+        color: var(--text-lo);
+      }
+
+      /* ---------- Glass panels ---------- */
+
+      main {
+        padding: 8px 0 96px;
+      }
+
+      .section-label {
+        font-size: x-large;
+        color: var(--text-lo);
+        font-weight: bold;
+        margin: 0 0 20px;
+        text-align: center;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+      }
+
+      .panel {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 26px 24px;
+        border-radius: 22px;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(22px) saturate(160%);
+        -webkit-backdrop-filter: blur(22px) saturate(160%);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        overflow: hidden;
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.6),
+          transparent
+        );
+      }
+
+      .panel:hover,
+      .panel:focus-visible {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.13);
+        box-shadow:
+          0 16px 50px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        outline: none;
+      }
+
+      .panel .idx {
+        font-size: 13px;
+        color: var(--text-lo);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .panel .name {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--text-hi);
+      }
+
+      .panel .desc-sm {
+        font-size: 13.5px;
+        color: var(--text-lo);
+      }
+
+      .panel .chevron {
+        align-self: flex-end;
+        margin-top: auto;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .panel:hover .chevron,
+      .panel:focus-visible .chevron {
+        transform: translateX(3px);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+
+      .chevron svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      /* Capstone panel */
+
+      .panel.capstone {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-color: rgba(255, 158, 100, 0.45);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.35),
+          0 0 60px rgba(255, 158, 100, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      }
+
+      .panel.capstone:hover,
+      .panel.capstone:focus-visible {
+        box-shadow:
+          0 16px 50px rgba(0, 0, 0, 0.4),
+          0 0 80px rgba(255, 158, 100, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      }
+
+      .panel.capstone .idx {
+        color: var(--ember);
+      }
+
+      .panel.capstone .chevron {
+        border-color: rgba(255, 158, 100, 0.5);
+        margin-top: 0;
+      }
+
+      .panel.capstone:hover .chevron,
+      .panel.capstone:focus-visible .chevron {
+        border-color: var(--ember);
+      }
+
+      @media (max-width: 560px) {
+        .panel.capstone {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .panel.capstone .chevron {
+          align-self: flex-end;
+        }
+      }
+
+      footer {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 0 24px 56px;
+        font-size: 13px;
+        color: var(--text-lo);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--bloom-teal);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true">
+      <div class="bloom b1"></div>
+      <div class="bloom b2"></div>
+      <div class="bloom b3"></div>
+    </div>
+
+    <div class="wrap">
+      <header class="hero">
+        <p class="kicker">web programming coursework</p>
+        <h1>sjwp2</h1>
+        <p class="identity"><strong>Zvonimir Švaganović</strong></p>
+        <p class="desc">
+          Every homework and project from the semester, one tap away.
+        </p>
+      </header>
+
+      <main>
+        <p class="section-label">Projects</p>
+
+        <div class="grid">
+          <a class="panel" href="hw-01-html-basics/index.html">
+            <span class="idx">01</span>
+            <span class="name">Zadaća 1</span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel" href="hw-02-css-layout/index.html">
+            <span class="idx">02</span>
+            <span class="name">Zadaća 2</span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel" href="hw-03-javascript-dom/index.html">
+            <span class="idx">03</span>
+            <span class="name"></span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel" href="hw-04-forms-validation/index.html">
+            <span class="idx">04</span>
+            <span class="name">Zadaća 4</span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel" href="hw-05-api-fetch/index.html">
+            <span class="idx">05</span>
+            <span class="name">Zadaća 5</span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel" href="hw-05-api-fetch/index.html">
+            <span class="idx">06</span>
+            <span class="name">Zadaća 6</span>
+            <span class="desc-sm">opis</span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+
+          <a class="panel capstone" href="hw-06-final-project/index.html">
+            <span>
+              <span class="idx">07</span><br />
+              <span class="name">final-project</span>
+              <span class="desc-sm"
+                >Full build, everything from the semester combined</span
+              >
+            </span>
+            <span class="chevron"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" /></svg
+            ></span>
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
