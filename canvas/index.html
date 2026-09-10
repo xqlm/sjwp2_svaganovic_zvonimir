@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>canvas</title>
+  </head>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="600"
+      height="600"
+      style="border: 1px solid black"
+    >
+    </canvas>
+    <script>
+      let c = document.getElementById("myCanvas");
+      let ctx = c.getContext("2d");
+
+      // pravokutnik
+      ctx.beginPath();
+      ctx.rect(100, 100, 200, 200);
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+
+      // krug
+      ctx.beginPath();
+      ctx.arc(200, 200, 100, 0, 2 * Math.PI);
+      ctx.strokeStyle = "black"; // Add a stroke color
+      ctx.stroke();
+
+      // linija
+      ctx.moveTo(200, 200);
+      ctx.lineTo(300, 200);
+      ctx.stroke();
+    </script>
+  </body>
+</html>

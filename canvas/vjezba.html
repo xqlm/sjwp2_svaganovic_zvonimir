@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="600"
+      height="400"
+      style="border: 1px solid black"
+    ></canvas>
+    <script>
+      let c = document.getElementById("myCanvas");
+      let ctx = c.getContext("2d");
+
+      // zid
+      ctx.beginPath();
+      ctx.rect(100, 100, 250, 150);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+
+      // vrata
+      ctx.beginPath();
+      ctx.rect(110, 150, 60, 100);
+      ctx.fillStyle = "lightgray";
+      ctx.fill();
+
+      // prozor
+      ctx.beginPath();
+      ctx.rect(200, 150, 100, 50);
+      ctx.fillStyle = "lightgray";
+      ctx.fill();
+
+      // krov
+    </script>
+  </body>
+</html>
