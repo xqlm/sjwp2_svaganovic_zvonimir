@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skriptni jezici</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <ul>
+      <li><a href="./pages/pocetna.html">Početna</a></li>
+      <li><a href="./pages/o-nama.html">O nama</a></li>
+      <li><a href="./pages/Kontakt.html">Kontakt</a></li>
+    </ul>
+    <h1>HTML, CSS, Canvas i SVG</h1>
+    <p>
+      <i>Canvas</i> je HTML5 element koji, pomoću JavaScript-a, omogućava
+      dinamičko iscrtavanje različitih oblika, dodavanje slika, kreiranje
+      animacija na web stranici i sl. <br /><br />
+      Na platnu (canvas-u) to ne radimo korištenjem novog jezika (kao što je to
+      slučaj kod SVG) ili korištenjem Flasha. Najčešće uporabe platna su:
+    </p>
+    <ul class="u_paragrafu">
+      <li class="ne_diraj">crtanje grafova,</li>
+      <li class="ne_diraj">animiranje, igre i</li>
+      <li class="ne_diraj">kompozicija slike.</li>
+    </ul>
+    <hr />
+    <p>
+      <strong>SVG</strong> (<i>Scaleble Vector Graphics</i>) grafika ne gubi
+      kvalitetu prilikom zumiranja ili resize-a. <br />
+      <br />Svi crteži mogu biti interaktivni i dinamički. Svaki element i
+      atribut SVG datoteke može biti animiran. Animacije mogu biti definirane i
+      pokrenute interaktivno ili pomoću skripti. <br />
+      <br />SVG integrira druge W3C standarde kao što su DOM, XSL …
+    </p>
+    <hr />
+    <h3>Usporedba SVG-a i Canvasa</h3>
+    <table>
+      <tr>
+        <th>SVG</th>
+        <th>HTML Canvas</th>
+      </tr>
+      <tr>
+        <td>
+          SVG ima bolju skalabilnost, tako da može imati bolje slike sa velikom
+          kvalitetom na bilo kojoj rezoluciji
+        </td>
+        <td>
+          Canvas ima lošu skalabilnos. Nije prikladan za rad s velikim
+          rezolucijama
+        </td>
+      </tr>
+      <tr>
+        <td>
+          SVG daje bolje performanse sa manjim brojem objekata ili većom
+          površinom
+        </td>
+        <td>
+          Canvas daje bolje performanse za rad sa manjim površinama ili većim
+          brojem objekata
+        </td>
+      </tr>
+      <tr>
+        <td>SVG se može modificirati uz pomoć skripte i CSS-a</td>
+        <td>Canvas se može modificirati samo uz pomoć skripte</td>
+      </tr>
+      <tr>
+        <td>SVG je baziran na vektorima i sastavljen je od oblika</td>
+        <td>Canvas je baziran na pikselima</td>
+      </tr>
+    </table>
+    <br />
+    <table>
+      <tr>
+        <th>Ime</th>
+        <td>Marko</td>
+      </tr>
+      <tr>
+        <th>Telefon</th>
+        <td>
+          555-1234 <br />
+          <hr />
+          555-8745
+        </td>
+      </tr>
+    </table>
+    <br />
+    <img
+      src="imgs/light_bulb.png"
+      alt="comparison of svg and canvas when zoomed"
+    />
+    <br />
+    <h2>Primjer SVG-a i Canvasa</h2>
+
+    <svg width="500" height="500" fill="#a3dcf7">
+      <rect x="141" y="96" width="214" height="38" fill="#1d5fb3" />
+      <rect x="141" y="133" width="214" height="211" fill="#fcf6dc" />
+      <rect x="107" y="181" width="34" height="68" fill="#fcc92a" />
+      <rect x="355" y="181" width="34" height="68" fill="#fcc92a" />
+    </svg>
+    <canvas> </canvas>
+
+    <form action="*" method="get">
+      <label for="Ime">Unesi ime</label>
+      <input type="text" id="Ime" />
+      <br />
+
+      <label for="e-adresa">Unesi e-adresu</label>
+      <input type="email" id="e-adresa" />
+      <br />
+
+      <label for="datum">Unesi datum</label>
+      <input type="date" id="datum" />
+      <br />
+
+      <button type="submit"><a href="./pages/forma.html">Podnesi</a></button>
+      <button type="reset">Resetiraj</button>
+    </form>
+  </body>
+</html>
